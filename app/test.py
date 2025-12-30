@@ -1,17 +1,12 @@
-
 from pymongo import MongoClient
-# import os
-# from dotenv import load_dotenv
+import os
+from dotenv import load_dotenv
+# from pathlib import Path
 
-# load_dotenv()    --------------- bonus
+load_dotenv()
 
-# MONGO_URI = os.getenv("MONGO_URI")
-# DB_NAME = os.getenv("DB_NAME")
-
-MONGO_URI="mongodb://localhost:27018"
-DB_NAME="fastapi_db_container"
-
-
+MONGO_URI = os.getenv("MONGO_URI")
+DB_NAME = os.getenv("DB_NAME")
 
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
@@ -66,4 +61,3 @@ def basic_crud_test():
 
     finally:
         client.close()
-        print("ℹ️ MongoDB client closed")
