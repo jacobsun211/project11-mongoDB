@@ -1,1 +1,14 @@
-MONGO_INITDB_DATABASE=${MONGO_INITDB_ROOT_DATABASE}
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+  - protocol: TCP
+    port: 27018
+    targetPort: 27018
+  type: ClusterIP
+
+
