@@ -13,20 +13,12 @@ class Contacts:
 
     @staticmethod
     def get_contacts():
-        client = MongoClient(MONGO_URI)
-        db = client[DB_NAME]
-
-        try:
-            
-            contacts = collection.find({})
+        try:     
+            contacts = collection.find()
             return contacts
         except Exception as e:
-            print(" error occurred while testing MongoDB connection:", e)
-            raise
-
-        # finally:
-            # client.close()
-            # print(" MongoDB client closed")
+            return " error occurred while testing MongoDB connection:", e
+            
 
 
     @staticmethod
@@ -41,6 +33,30 @@ class Contacts:
         }
         collection.insert_one(new_contact)
         return new_id
+
+
+    @staticmethod
+    def update_contact(id,contact):  
+        try:
+            contact = collection.find_one({"_id": id}, 
+                        {
+                           "first_name": contact.first_name,
+                           "last_name": contact.last_name,
+                           "phone_number": contact.phone_number
+                        })
+            return contact
+        except:
+            return False
+
+    @staticmethod
+    def delete_contact(id):  
+        try:
+            collection.find_one_and_delete({"_id": id})
+            return True
+        except Exception as e:
+            return " error occurred while trying to delete contact:", e
+            
+
 
 # class Contacts:
         
