@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 import uvicorn
-# from data_intractor import Contacts
 from data_intractor import Contacts
-from typing import Any
+# from typing import Any
 from pydantic import BaseModel
-
 from bson import json_util
 import json
 
@@ -29,26 +27,23 @@ def post_contact(contact: Contact_params):
     "message": "Contact created successfully",
     "id": new_id
 }
+
+
+@app.put("/contacts{id}")
+def update_contact(id, contact: Contact_params):
+        Contacts.update_contact(id,contact)
+        return True
+
+
+@app.delete("/contacts")
+def delete_contact(id: int):
+    bool = Contacts.delete_contact(id)
+    return bool
 # -------------------------------------------------------
 # # to do: make phone number uniqie (pydantic, discord)
 # -------------------------------------------------------
     
-#     new_id = Contacts.create_contact(contact.first_name, contact.last_name, contact.phone_number)
-#     return {
-#         "message": "Contact created successfully",
-#         "id": new_id
-#         }
 
-# @app.put("/contacts{id}")
-# def update_contact(id, contact: Contact_params):
-#     bool = Contacts.update_contact(id,contact.first_name, contact.last_name, contact.phone_number)
-#     return bool
-
-
-# @app.delete("/contacts")
-# def delete_contact(id: int):
-#     bool = Contacts.delete_contact(id)
-#     return bool
 
 
 
