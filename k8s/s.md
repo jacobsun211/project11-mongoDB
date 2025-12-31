@@ -30,3 +30,6 @@ docker run --rm -p 8000:8000 jacobsun211/contacts-api:v1
 Then open: http://localhost:8000/docs.
 
 If it runs fine here, you know the image itself is good.
+
+
+kubectl logs -l app=api --tail=100

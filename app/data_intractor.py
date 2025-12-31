@@ -1,8 +1,11 @@
 import mysql.connector
 import uvicorn
 from pymongo import MongoClient
+import os
 
-MONGO_URI="mongodb://localhost:27018"
+
+db_uri = os.getenv("MONGO_HOST")
+MONGO_URI=F"mongodb://{db_uri}:27018"
 DB_NAME="mongoDB"
 
 client = MongoClient(MONGO_URI)
@@ -38,13 +41,13 @@ class Contacts:
     @staticmethod
     def update_contact(id,contact):  
         try:
-            contact = collection.find_one({"_id": id}, 
+            collection.find_one({"_id": id}, 
                         {
                            "first_name": contact.first_name,
                            "last_name": contact.last_name,
                            "phone_number": contact.phone_number
                         })
-            return contact
+            return True
         except:
             return False
 
@@ -57,56 +60,3 @@ class Contacts:
             return " error occurred while trying to delete contact:", e
             
 
-
-# class Contacts:
-        
-
-#     @staticmethod
-#     def sql_to_dict(rows):
-#         contacts_dict = []
-#         for contact in rows:
-#             row = {"id":contact[0],
-#              "first_name":contact[1],
-#              "last_name":contact[2],
-#              "phone_number":contact[3],
-#              }
-#             contacts_dict.append(row)
-#         return contacts_dict
-    
-#     @staticmethod
-#     def get_all_contacts():
-#         cursor.execute("SELECT * FROM contacts")
-#         contacts = cursor.fetchall()
-#         return contacts
-
-#     @staticmethod
-#     def create_contact(first_name, last_name, phone_number):
-#         cursor.execute( 
-#             f"INSERT INTO contacts (first_name, last_name, phone_number) \
-#             VALUES ('{first_name}', '{last_name}', '{phone_number}')")
-#         conn.commit()
-#         new_id = Contacts.new_contact_id()
-#         return new_id
-    
-
-#     def new_contact_id():
-#         cursor.execute("SELECT MAX(id) FROM contacts;")
-#         new_contact_id = cursor.fetchone()
-#         return new_contact_id
-    
-#     @staticmethod
-#     def update_contact(id,new_first_name,new_last_name,new_number):  
-#         cursor.execute(
-#             f"UPDATE contacts \
-#             SET first_name = '{new_first_name}', last_name = '{new_last_name}', phone_number = '{new_number}' \
-#             WHERE id = '{id}';")
-#         conn.commit()
-#         return cursor.rowcount > 0
-
-#     @staticmethod
-#     def delete_contact(id):
-#         cursor.execute(
-#             f"DELETE FROM contacts \
-#             WHERE id = '{id}';")
-#         conn.commit()
-#         return cursor.rowcount > 0
