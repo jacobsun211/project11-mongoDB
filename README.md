@@ -13,17 +13,7 @@ copyright disclaimer: if you want to copy this code... be my guest, i dont know 
 # what i maneged to do
 
 i did Docker, sql database, api application
-each one with branch of his own
-
--------- Docker branch
-
-2 working containers that can communicate with each other
-
---------- sql branch
-
-init sql and data_intractor that has all the needed sql querys
-
---------- api branch 
+each one with branch of his own 
 
 all endpoints work
 (except PUT which works in sql query but i didnt sure on how to do it in the endpoints)

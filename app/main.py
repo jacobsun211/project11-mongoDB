@@ -31,14 +31,16 @@ def post_contact(contact: Contact_params):
 
 @app.put("/contacts{id}")
 def update_contact(id, contact: Contact_params):
-        Contacts.update_contact(id,contact)
-        return True
+        bool = Contacts.update_contact(id,contact)
+        return bool
 
 
 @app.delete("/contacts")
 def delete_contact(id: int):
     bool = Contacts.delete_contact(id)
     return bool
+
+
 # -------------------------------------------------------
 # # to do: make phone number uniqie (pydantic, discord)
 # -------------------------------------------------------
